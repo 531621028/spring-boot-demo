@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.hkk.demo.infrastructure.CustomerCacheManager;
+import com.hkk.demo.infrastructure.DemoCacheManager;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -89,8 +89,8 @@ public class CommonConfig {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> initialCaches = new LinkedHashMap<>();
-        RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 10 * 60);
-        return new CustomerCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
+        RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 10);
+        return new DemoCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
             initialCaches, true);
     }
 

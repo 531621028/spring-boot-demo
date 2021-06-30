@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
  * @author hukangkang
  */
 @RestController
-@CrossOrigin(origins = {"${cross.origins}"}, maxAge = 72000L)
+@CrossOrigin(maxAge = 72000L)
 public class CrossOriginsDemoController {
 
     @GetMapping("/")
