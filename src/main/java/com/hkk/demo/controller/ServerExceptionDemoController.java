@@ -1,8 +1,8 @@
 package com.hkk.demo.controller;
 
+import com.hkk.demo.exception.ServerExceptionHandlerGroup;
 import com.hkk.demo.service.ExceptionDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021/7/16
  */
 @RestController
-@RequestMapping(value = "/exception")
-@Order(0)
-public class ExceptionDemoController {
+@ServerExceptionHandlerGroup
+@RequestMapping("/exception")
+public class ServerExceptionDemoController {
 
     @Autowired
     ExceptionDemoService exceptionDemoService;
 
-    @RequestMapping("/common")
-    public String test() {
+    @RequestMapping("/server")
+    public String server() {
         exceptionDemoService.handler();
-        return "common";
+        return "ok";
     }
 
 }

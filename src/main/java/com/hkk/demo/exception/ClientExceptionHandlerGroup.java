@@ -7,14 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * TODO
+ * 服务端异常处理分组
  *
  * @author hukangkang
- * @since 2021/7/16
+ * @since 2021/7/19
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface X5ExceptionHandler {
+public @interface ClientExceptionHandlerGroup {
 
 }
