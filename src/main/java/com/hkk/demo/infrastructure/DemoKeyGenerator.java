@@ -14,8 +14,8 @@ import org.springframework.util.Assert;
  * @author hukangkang
  * @since 2021/6/25
  */
-@Component("customerKeyGenerator")
-public class CustomerKeyGenerator extends SimpleKeyGenerator {
+@Component("demoKeyGenerator")
+public class DemoKeyGenerator extends SimpleKeyGenerator {
 
     @Override
     public Object generate(Object target, Method method, Object... params) {

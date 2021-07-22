@@ -37,7 +37,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  * @since 2021/6/25
  */
 @Configuration
-public class CommonConfig {
+public class DemoConfig {
 
     @Bean
     public HttpMessageConverters jacksonHttpMessageConverters() {
