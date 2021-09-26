@@ -58,6 +58,12 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- 大名鼎鼎得@Aspect/@Pointcut系列的注解 都在此处 -->
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.2</version>
+        </dependency>
     </dependencies>
 
     <build>
