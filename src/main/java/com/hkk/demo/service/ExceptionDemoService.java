@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExceptionDemoService {
 
-    public void handler(){
+    public void handler() {
         throw new RuntimeException();
     }
 
