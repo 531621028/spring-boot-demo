@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author hukangkang
  * @since 2021/9/27
  */
-@Component
+@Component("cycleConfig")
 public class CycleConfig {
 
     @Autowired

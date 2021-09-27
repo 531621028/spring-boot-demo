@@ -1,6 +1,6 @@
 package com.hkk.demo.service;
 
-import com.hkk.demo.factory.CycleFactoryBeanTest;
+import com.hkk.demo.afactory.CycleFactoryBeanTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

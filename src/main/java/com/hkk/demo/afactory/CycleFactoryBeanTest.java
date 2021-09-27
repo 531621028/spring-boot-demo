@@ -1,9 +1,10 @@
-package com.hkk.demo.factory;
+package com.hkk.demo.afactory;
 
 import com.hkk.demo.config.CycleConfig;
 import com.hkk.demo.service.CycleServiceTest;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  * @since 2021/9/27
  */
 @Component
+@DependsOn("cycleConfig")
 public class CycleFactoryBeanTest implements FactoryBean<CycleServiceTest> {
 
     public CycleFactoryBeanTest() {
