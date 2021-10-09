@@ -1,4 +1,4 @@
-package com.hkk.demo.afactory;
+package com.hkk.demo.factory;
 
 import com.hkk.demo.config.CycleConfig;
 import com.hkk.demo.service.CycleServiceTest;
@@ -25,7 +25,7 @@ public class CycleFactoryBeanTest implements FactoryBean<CycleServiceTest> {
     private CycleConfig cycleConfig;
 
     @Override
-    public CycleServiceTest getObject() throws Exception {
+    public CycleServiceTest getObject() {
         if (cycleConfig == null) {
             throw new IllegalStateException();
         }
