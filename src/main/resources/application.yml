@@ -1,0 +1,26 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: local_test_hkk
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  cache:
+    ttl:
+      cacheDemo60s: 60
+management:
+  server:
+    port: 8091
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+      path-mapping:
+        prometheus: /prometheus
+        metrics: /metric
+  metrics:
+    tags:
+      env: local
+      application: ${spring.application.name}
