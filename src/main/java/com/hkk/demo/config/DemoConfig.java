@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.hkk.demo.exception.DemoCacheErrorHandler;
 import com.hkk.demo.infrastructure.DemoCacheManager;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -17,6 +18,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurer;
+import org.springframework.cache.interceptor.CacheErrorHandler;
+import org.springframework.cache.interceptor.CacheResolver;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -92,6 +97,31 @@ public class DemoConfig {
         RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 10);
         return new DemoCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
             initialCaches, true);
+    }
+
+    @Bean
+    public CachingConfigurer cachingConfigurer() {
+        return new CachingConfigurer() {
+            @Override
+            public CacheManager cacheManager() {
+                return null;
+            }
+
+            @Override
+            public CacheResolver cacheResolver() {
+                return null;
+            }
+
+            @Override
+            public KeyGenerator keyGenerator() {
+                return null;
+            }
+
+            @Override
+            public CacheErrorHandler errorHandler() {
+                return new DemoCacheErrorHandler();
+            }
+        };
     }
 
     @Bean
