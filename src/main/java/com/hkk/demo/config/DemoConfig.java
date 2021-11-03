@@ -7,8 +7,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.hkk.demo.exception.DemoCacheErrorHandler;
-import com.hkk.demo.infrastructure.DemoCacheManager;
+import com.hkk.demo.infrastructure.DemoMultiCacheManager;
+import com.hkk.demo.infrastructure.DemoRedisCacheManager;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,9 +18,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.CacheResolver;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -92,11 +96,25 @@ public class DemoConfig {
     }
 
     @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+    public CacheManager cacheRedisManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> initialCaches = new LinkedHashMap<>();
-        RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 10);
-        return new DemoCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
+        RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 600);
+        return new DemoRedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
             initialCaches, true);
+    }
+
+    @Bean
+    public CacheManager cacheCaffeineManager() {
+        Caffeine<Object, Object> caffeine = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES);
+        CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
+        caffeineCacheManager.setCaffeine(caffeine);
+        return caffeineCacheManager;
+    }
+
+    @Bean
+    @Primary
+    public CacheManager cacheManager(CacheManager cacheCaffeineManager, CacheManager cacheRedisManager) {
+        return new DemoMultiCacheManager(cacheCaffeineManager, cacheRedisManager);
     }
 
     @Bean

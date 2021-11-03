@@ -17,9 +17,14 @@ public class CacheDemoService {
         return "60s";
     }
 
-    @Cacheable(cacheNames = "CacheDemo30s#${spring.cache.ttl.cacheDemo60s}")
-    public String get30s() {
-        return "30s";
+    @Cacheable(cacheNames = "localCache")
+    public String localCache() {
+        return "local";
+    }
+
+    @Cacheable(cacheNames = "remoteCache")
+    public String remoteCache() {
+        return "remote";
     }
 
 }

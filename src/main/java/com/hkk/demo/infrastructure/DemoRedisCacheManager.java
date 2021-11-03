@@ -16,11 +16,11 @@ import org.springframework.util.StringUtils;
  * @author hukangkang
  * @since 2021/6/28
  */
-public class DemoCacheManager extends RedisCacheManager implements EnvironmentAware {
+public class DemoRedisCacheManager extends RedisCacheManager implements EnvironmentAware {
 
     private Environment environment;
 
-    public DemoCacheManager(RedisCacheWriter cacheWriter,
+    public DemoRedisCacheManager(RedisCacheWriter cacheWriter,
         RedisCacheConfiguration defaultCacheConfiguration,
         Map<String, RedisCacheConfiguration> initialCacheConfigurations, boolean allowInFlightCacheCreation) {
         super(cacheWriter, defaultCacheConfiguration, initialCacheConfigurations, allowInFlightCacheCreation);

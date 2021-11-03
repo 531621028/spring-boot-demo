@@ -18,9 +18,14 @@ public class CacheManagerDemoController {
     @Autowired
     private CacheDemoService cacheDemoService;
 
-    @RequestMapping("get30s")
-    public String get30s() {
-        return cacheDemoService.get30s();
+    @RequestMapping("local")
+    public String local() {
+        return cacheDemoService.localCache();
+    }
+
+    @RequestMapping("remote")
+    public String remote() {
+        return cacheDemoService.remoteCache();
     }
 
     @RequestMapping("get60s")
