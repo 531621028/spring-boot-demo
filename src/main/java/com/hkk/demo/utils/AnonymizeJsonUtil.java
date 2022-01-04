@@ -9,9 +9,9 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -38,14 +38,10 @@ public class AnonymizeJsonUtil {
 
     private static final String EMPTY_JSON = "{}";
     private static final List<String> ANONYMIZE_NAMES = Lists.newArrayList("cash");
-    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-    static {
-        // 反序列化时忽略不存在的字段
-        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        // 注册处理敏感字段的扩展模块
-        OBJECT_MAPPER.registerModule(new AnonymizeModule());
-    }
+    public static final JsonMapper OBJECT_MAPPER = JsonMapper.builder()
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)// 反序列化时忽略不存在的字段
+        .addModule(new AnonymizeModule())// 注册处理敏感字段的扩展模块
+        .build();
 
     /**
      * 把java对象转换为json字符串
