@@ -118,7 +118,7 @@ public class AnonymizeJsonUtil {
 
             private boolean needAnonymize(BeanPropertyWriter writer) {
                 return writer.getAnnotation(Anonymize.class) != null || ANONYMIZE_NAMES.stream()
-                    .anyMatch(s -> StringUtils.equals(s, writer.getName()));
+                    .anyMatch(s -> StringUtils.containsIgnoreCase(s, writer.getName()));
             }
 
             @Override
@@ -178,7 +178,7 @@ public class AnonymizeJsonUtil {
 
 
     public static void main(String[] args) {
-        SensitiveTest data = new SensitiveTest();
+        AnonymizeData data = new AnonymizeData();
         data.setPassword("1234");
         data.setUsername("123456");
         data.setSalary(10000);
@@ -187,7 +187,7 @@ public class AnonymizeJsonUtil {
     }
 
     @Data
-    public static class SensitiveTest {
+    public static class AnonymizeData {
 
         @Anonymize
         private String password;
