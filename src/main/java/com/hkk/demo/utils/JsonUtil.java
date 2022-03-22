@@ -1,9 +1,12 @@
 package com.hkk.demo.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ public class JsonUtil {
 
     static {
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     /**
@@ -75,6 +79,11 @@ public class JsonUtil {
     public static <T> T readValue(String jsonStr, TypeReference<T> typeReference)
         throws JsonProcessingException {
         return OBJECT_MAPPER.readValue(jsonStr, typeReference);
+    }
+
+    public static <T> T readValue(InputStream inputStream, TypeReference<T> typeReference)
+        throws IOException {
+        return OBJECT_MAPPER.readValue(inputStream, typeReference);
     }
 
     /**
