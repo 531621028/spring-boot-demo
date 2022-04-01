@@ -42,10 +42,14 @@ public class YamlUtilsTest {
             List<TestFields> fields = new ArrayList<>();
             fieldMap.forEach((key, value) -> {
                 TestFields field = new TestFields();
-                field.setFieldCode(key);
+                field.setFieldCode(module.getFieldCode() + "." + key);
                 field.setFieldDesc(value);
                 field.setFieldType("2");
-                field.setNeedDecrypt(false);
+                if (field.getFieldDesc().contains("加密")) {
+                    field.setNeedDecrypt(true);
+                } else {
+                    field.setNeedDecrypt(false);
+                }
                 fields.add(field);
             });
             module.setFields(fields);
@@ -55,7 +59,7 @@ public class YamlUtilsTest {
         //转储选项设置
         DumperOptions options = new DumperOptions();
         //通常使用的yaml格式
-        Map<String,Object> map = JsonUtil.readValue(JsonUtil.toJsonString(report),
+        Map<String, Object> map = JsonUtil.readValue(JsonUtil.toJsonString(report),
             new TypeReference<Map<String, Object>>() {
             });
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
