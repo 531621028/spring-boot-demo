@@ -42,17 +42,17 @@ public class YamlUtilsTest {
             List<TestFields> fields = new ArrayList<>();
             fieldMap.forEach((key, value) -> {
                 TestFields field = new TestFields();
-                field.setFieldCode(module.getFieldCode() + "." + key);
+                field.setFieldCode(key);
                 field.setFieldDesc(value);
                 field.setFieldType("2");
-                if (field.getFieldDesc().contains("加密")) {
-                    field.setNeedDecrypt(true);
-                } else {
-                    field.setNeedDecrypt(false);
-                }
+                // if (field.getFieldDesc().contains("加密")) {
+                //     field.setNeedDecrypt(true);
+                // } else {
+                //     field.setNeedDecrypt(false);
+                // }
                 fields.add(field);
             });
-            module.setFields(fields);
+            module.setChildren(fields);
             modules.add(module);
 
         });
@@ -103,14 +103,14 @@ public class YamlUtilsTest {
              * 1:模块 2:字段
              */
             private String fieldType;
-            /**
-             * 是否需要解密
-             */
-            private boolean needDecrypt;
+            // /**
+            //  * 是否需要解密
+            //  */
+            // private boolean needDecrypt;
             /**
              * 字段集合
              */
-            private List<TestFields> fields;
+            private List<TestFields> children;
 
             public String getFieldCode() {
                 return fieldCode;
@@ -136,20 +136,21 @@ public class YamlUtilsTest {
                 this.fieldType = fieldType;
             }
 
-            public boolean isNeedDecrypt() {
-                return needDecrypt;
+            // public boolean isNeedDecrypt() {
+            //     return needDecrypt;
+            // }
+            //
+            // public void setNeedDecrypt(boolean needDecrypt) {
+            //     this.needDecrypt = needDecrypt;
+            // }
+
+            public List<TestFields> getChildren() {
+                return children;
             }
 
-            public void setNeedDecrypt(boolean needDecrypt) {
-                this.needDecrypt = needDecrypt;
-            }
-
-            public List<TestFields> getFields() {
-                return fields;
-            }
-
-            public void setFields(List<TestFields> fields) {
-                this.fields = fields;
+            public void setChildren(
+                List<TestFields> children) {
+                this.children = children;
             }
         }
     }

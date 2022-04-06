@@ -1,20 +1,17 @@
 package com.hkk.demo.utils.excel;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ListUtils;
-import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.google.common.base.Splitter;
-import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,19 +40,31 @@ public class EasyExcelTest {
 
         }
         File excelFile = File.createTempFile("excel", ".xlsx", directory);
-        List<List<String>> head = head();
-        List<List<String>> data = data();
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         EasyExcel.write(excelFile)
-            .inMemory(true)
-            .excelType(ExcelTypeEnum.XLSX)
+            .includeColumnFiledNames(Lists.newArrayList("string", "doubleData", "date"))
             // 这里放入动态头
-            .head(head).sheet("模板")
-            .registerWriteHandler(new WaterMarkStrategy())
-            .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+            .head(demoHead()).sheet("模板")
             // 当然这里数据也可以用 List<List<String>> 去传入
-            .doWrite(data);
-        System.out.println("耗时" + stopwatch.elapsed(TimeUnit.SECONDS));
+            .doWrite(demoData());
+        // List<List<String>> head = head();
+        // List<List<String>> data = data();
+        // Stopwatch stopwatch = Stopwatch.createStarted();
+        // EasyExcel.write(excelFile)
+        //     .inMemory(true)
+        //     .excelType(ExcelTypeEnum.XLSX)
+        //     // 这里放入动态头
+        //     .head(head).sheet("模板")
+        //     .registerWriteHandler(new WaterMarkStrategy())
+        //     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+        //     // 当然这里数据也可以用 List<List<String>> 去传入
+        //     .doWrite(data);
+        // System.out.println("耗时" + stopwatch.elapsed(TimeUnit.SECONDS));
+    }
+
+    private static Collection<DemoData> demoData() {
+        return Lists.newArrayList(new DemoData("标题1", 123.4d, new Date(), "忽略1"),
+            new DemoData("标题2", 123.4d, new Date(), "忽略2"));
     }
 
     private static List<List<String>> head() {
@@ -63,6 +72,14 @@ public class EasyExcelTest {
         for (int i = 0; i < 50; i++) {
             head.add(Lists.newArrayList(randomValue()));
         }
+        return head;
+    }
+
+    private static List<List<String>> demoHead() {
+        List<List<String>> head = new ArrayList<>();
+        head.add(Lists.newArrayList("标题", "字符串标题"));
+        head.add(Lists.newArrayList("标题", "数字标题"));
+        head.add(Lists.newArrayList("标题", "日期标题"));
         return head;
     }
 
@@ -89,19 +106,21 @@ public class EasyExcelTest {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     @EqualsAndHashCode
     public static class DemoData {
 
-        @ExcelProperty("字符串标题")
+        @ExcelProperty(value = {"标题", "字符串标题"})
         private String string;
-        @ExcelProperty("数字标题")
+        @ExcelProperty(value = {"标题", "数字标题"})
         private Double doubleData;
-        @ExcelProperty("日期标题")
+        @ExcelProperty(value = {"标题", "日期标题"})
         private Date date;
-        /**
-         * 忽略这个字段
-         */
-        @ExcelIgnore
+        // /**
+        //  * 忽略这个字段
+        //  */
+        // @ExcelIgnore
+        @ExcelProperty(value = {"标题", "忽略"})
         private String ignore;
     }
 
