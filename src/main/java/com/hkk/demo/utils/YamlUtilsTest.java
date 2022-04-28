@@ -22,7 +22,7 @@ public class YamlUtilsTest {
     public static final String fieldDesc = "fieldDesc";
 
     public static List<Map<String, Object>> getDictJson() throws IOException {
-        InputStream inputStream = YamlUtilsTest.class.getResourceAsStream("/dict.json");
+        InputStream inputStream = YamlUtilsTest.class.getResourceAsStream("/base-salary.json");
         return JsonUtil.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {
 
         });
@@ -33,7 +33,7 @@ public class YamlUtilsTest {
         List<Map<String, Object>> allMap = getDictJson();
         Map<Integer, List<TestFields>> report = new LinkedHashMap<>();
         allMap.forEach(moduleMap -> {
-            List<TestFields> modules = report.computeIfAbsent(1, key -> new ArrayList<>());
+            List<TestFields> modules = report.computeIfAbsent(2, key -> new ArrayList<>());
             TestFields module = new TestFields();
             module.setFieldCode((String) moduleMap.get(fieldCode));
             module.setFieldDesc((String) moduleMap.get(fieldDesc));
