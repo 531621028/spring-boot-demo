@@ -6,6 +6,7 @@ package com.hkk.demo.thread;
  */
 public class VisibilityTest extends Thread {
 
+
     private boolean keepRun = true;
 
     public static void main(String[] args) throws InterruptedException {
@@ -15,6 +16,7 @@ public class VisibilityTest extends Thread {
         Thread.currentThread().join(1000);
         test.setKeepRun(false);
         System.out.println("end:" + test.isKeepRun());
+
     }
 
     @Override
