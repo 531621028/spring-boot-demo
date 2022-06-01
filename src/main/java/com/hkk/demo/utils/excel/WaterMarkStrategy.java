@@ -72,16 +72,17 @@ public class WaterMarkStrategy implements SheetWriteHandler {
     public static void putWaterRemarkToExcel(XSSFSheet sheet, byte[] bytes) {
         XSSFWorkbook workbook = sheet.getWorkbook();
         int pictureIdx = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
-        String rID = sheet.addRelation(null, XSSFRelation.IMAGES,
+        String rId = sheet.addRelation(null, XSSFRelation.IMAGES,
                 workbook.getAllPictures().get(pictureIdx))
             .getRelationship().getId();
         //设置背景图片----关键代码
-        sheet.getCTWorksheet().addNewPicture().setId(rID);
+        sheet.getCTWorksheet().addNewPicture().setId(rId);
     }
 
     @Override
     public void beforeSheetCreate(WriteWorkbookHolder writeWorkbookHolder,
         WriteSheetHolder writeSheetHolder) {
+        // do nothing
     }
 
     @SneakyThrows
