@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -37,8 +38,8 @@ public class JsonUtil {
 
     static {
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        // OBJECT_MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        OBJECT_MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         OBJECT_MAPPER.setSerializerFactory(OBJECT_MAPPER.getSerializerFactory()
             .withSerializerModifier(new MyBeanSerializerModifier()));
     }
