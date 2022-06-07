@@ -1,5 +1,6 @@
 package com.hkk.demo.kafka;
 
+import com.hkk.demo.utils.JsonUtil;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -24,15 +25,21 @@ public class ConsumerDemo {
             StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
             StringDeserializer.class.getName());
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, Boolean.TRUE);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, Boolean.FALSE);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "test-demo");
         // 创建一个消费者
+        ConsumerRecords<String, String> records;
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
-            consumer.subscribe(Collections.singletonList("test"));
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
-            records.forEach(
-                consumerRecord -> log.info("consumer receive message content is {}",
-                    consumerRecord.value()));
+            do {
+                consumer.subscribe(Collections.singletonList("test"));
+                records = consumer.poll(Duration.ofSeconds(10));
+                records.forEach(
+                    consumerRecord -> log.info("consumer receive message content is {}",
+                        consumerRecord.value()));
+                consumer.commitAsync(
+                    (offsets, exception) -> log.info("offset commit callback {}",
+                        JsonUtil.toJsonStringOrEmpty(offsets)));
+            } while (!records.isEmpty());
         }
 
     }

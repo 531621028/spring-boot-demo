@@ -3,6 +3,7 @@ package com.hkk.demo.kafka;
 import com.hkk.demo.utils.JsonUtil;
 import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -24,8 +25,11 @@ public class ProducerDemo {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip"); // 开启GZIP压缩
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
-            producer.send(new ProducerRecord<>("test", "demo"),
-                (metadata, exception) -> log.info(JsonUtil.toJsonStringOrEmpty(metadata)));
+            for (int i = 0; i < 10000; i++) {
+                producer.send(new ProducerRecord<>("test", "demo" + RandomUtils.nextInt(0, 100)),
+                    (metadata, exception) -> log.info("complete send callback {}",
+                        JsonUtil.toJsonStringOrEmpty(metadata)));
+            }
         }
     }
 
