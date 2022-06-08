@@ -25,7 +25,8 @@ public class SynchronizedTest {
 
     public static void main(String[] args) throws InterruptedException {
         lock.hashCode(); // Step 2
-        System.identityHashCode(lock); // 会调用对象默认的hashCode方法，也就是Object.hashCode()方法，不论子类是否重写的hashCode方法
+        System.identityHashCode(
+            lock); // 会调用对象默认的hashCode方法，也就是Object.hashCode()方法，不论子类是否重写的hashCode方法
         for (int i = 0; i < 1_000_000; i++) {
             foo();
         }
@@ -35,7 +36,6 @@ public class SynchronizedTest {
 
         @Override
         public int hashCode() {
-            super.hashCode();
             return 0;
         }
     }
