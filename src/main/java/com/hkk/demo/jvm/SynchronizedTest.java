@@ -33,9 +33,10 @@ public class SynchronizedTest {
 
     static class Lock {
 
-        // @Override
-        // public int hashCode() {
-        //     return 1000;
-        // }
+        @Override
+        public int hashCode() {
+            super.hashCode();
+            return 0;
+        }
     }
 }
