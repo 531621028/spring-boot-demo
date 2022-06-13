@@ -22,7 +22,7 @@ public class AsyncCycleServiceTest {
      * 这个增强对象在调用对应方法的时候实时去BeanFactory中获取实际的对象来执行方法
      * https://blog.csdn.net/f641385712/article/details/93620967
      */
-    @Lazy
+    // @Lazy
     @Autowired
     private AsyncCycleServiceTest asyncCycleServiceTest;
 
