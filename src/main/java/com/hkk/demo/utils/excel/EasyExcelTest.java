@@ -23,8 +23,8 @@ import org.apache.commons.lang3.RandomUtils;
  */
 public class EasyExcelTest {
 
-    public static final List<String> STRINGS = Splitter.on(" ")
-        .splitToList("积 秧 秩 称 秘 透 笔 笑 笋 债 借 值 倚 倾 倒 倘 俱 倡 候 俯 倍 倦 健 臭 射 躬 息 徒 徐 舰 舱 般 航 途 拿 爹 爱");
+    public static final List<String> STRINGS = Lists.newArrayList(Splitter.on(" ")
+        .split("积 秧 秩 称 秘 透 笔 笑 笋 债 借 值 倚 倾 倒 倘 俱 倡 候 俯 倍 倦 健 臭 射 躬 息 徒 徐 舰 舱 般 航 途 拿 爹 爱"));
 
     public static void main(String[] args) throws IOException {
         dynamicHeadWrite();
