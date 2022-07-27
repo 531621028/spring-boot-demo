@@ -25,7 +25,7 @@ import org.junit.Test;
  * @date 2022/2/11
  */
 @Slf4j
-public class EasyExcelTest {
+public class EasyExcelWriteTest {
 
     /**
      * 最简单的写
@@ -52,7 +52,7 @@ public class EasyExcelTest {
     }
 
     public static String getPath() {
-        return Objects.requireNonNull(EasyExcelTest.class.getResource("/")).getPath();
+        return Objects.requireNonNull(EasyExcelWriteTest.class.getResource("/")).getPath();
     }
 
     private static List<DemoData> data() {
