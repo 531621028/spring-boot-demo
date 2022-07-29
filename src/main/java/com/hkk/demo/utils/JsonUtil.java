@@ -192,6 +192,10 @@ public class JsonUtil {
         }
     }
 
+    public static <T> T toObject(Object object, TypeReference<T> typeReference) {
+        return OBJECT_MAPPER.convertValue(object, typeReference);
+    }
+
 
     @Target({ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
