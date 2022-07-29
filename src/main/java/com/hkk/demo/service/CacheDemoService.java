@@ -19,7 +19,7 @@ public class CacheDemoService {
         return "60s";
     }
 
-    @Cacheable(cacheNames = "localCache")
+    @Cacheable(cacheNames = "remote")
     public String localCache() {
         return "local";
     }

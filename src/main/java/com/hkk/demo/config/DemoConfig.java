@@ -66,8 +66,10 @@ public class DemoConfig {
 
     public JavaTimeModule javaTimeModule() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        javaTimeModule.addSerializer(LocalDateTime.class,
+            new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        javaTimeModule.addSerializer(LocalDate.class,
+            new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
         return javaTimeModule;
     }
@@ -77,7 +79,8 @@ public class DemoConfig {
         ObjectMapper jsonObjectMapper = new ObjectMapper();
         jsonObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //这一句必须要，作用是序列化时将对象全类名一起保存下来,不然反序列化的時候会报错
-        jsonObjectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        jsonObjectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
+            ObjectMapper.DefaultTyping.NON_FINAL);
         jsonObjectMapper.registerModule(javaTimeModule());
         return jsonObjectMapper;
     }
@@ -89,6 +92,7 @@ public class DemoConfig {
         return RedisCacheConfiguration
             .defaultCacheConfig()
             .entryTtl(Duration.ofSeconds(seconds))
+            // .disableKeyPrefix()
             // 设置key为String
             .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
             // 设置value 为自动转Json的Object
@@ -99,7 +103,8 @@ public class DemoConfig {
     public CacheManager cacheRedisManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> initialCaches = new LinkedHashMap<>();
         RedisCacheConfiguration defaultCacheConfig = getCacheConfigurationWithTtl(redisObjectMapper(), 600);
-        return new DemoRedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), defaultCacheConfig,
+        return new DemoRedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
+            defaultCacheConfig,
             initialCaches, true);
     }
 

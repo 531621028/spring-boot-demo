@@ -48,9 +48,7 @@ public class DemoMultiCacheManager extends AbstractCacheManager {
         Set<String> localCacheNames = new HashSet<>(localCacheManger.getCacheNames());
         Set<String> remoteCacheNames = new HashSet<>(remoteCacheManager.getCacheNames());
         Collection<Cache> caches = new ArrayList<>();
-        localCacheNames.forEach(name -> {
-            caches.add(localCacheManger.getCache(name));
-        });
+        localCacheNames.forEach(name -> caches.add(localCacheManger.getCache(name)));
 
         remoteCacheNames.forEach(name -> {
             if (!localCacheNames.contains(name)) {
