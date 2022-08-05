@@ -63,7 +63,7 @@ public class EasyExcelWriteTest {
             DemoData data = new DemoData();
             data.setString("字符串" + i);
             data.setDate(new Date());
-            data.setDoubleData(0.56);
+            data.setDoubleData(String.valueOf(0.56));
             list.add(data);
         }
         return list;
@@ -88,7 +88,7 @@ public class EasyExcelWriteTest {
         @ExcelProperty("日期标题")
         private Date date;
         @ExcelProperty("数字标题")
-        private Double doubleData;
+        private String doubleData;
         /**
          * 忽略这个字段
          */

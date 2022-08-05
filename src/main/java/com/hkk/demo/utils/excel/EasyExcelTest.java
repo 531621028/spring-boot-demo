@@ -52,6 +52,7 @@ public class EasyExcelTest {
         File excelFile = File.createTempFile("excel", ".xlsx", directory);
 
         EasyExcel.write(excelFile)
+            .registerWriteHandler(new IntCellStyle())
             // 这里放入动态头
             .head(demoHead()).sheet("模板")
             // 当然这里数据也可以用 List<List<String>> 去传入
@@ -76,12 +77,12 @@ public class EasyExcelTest {
     //         new DemoData("标题2", 123.4d, new Date(), "忽略2"));
     // }
 
-    private static Collection<Map<Integer, String>> demoMapData() {
-        Map<Integer, String> item = new LinkedHashMap<>();
-        item.put(0, "标题1");
-        item.put(1, "标题2");
-        item.put(2, "标题3");
-        item.put(3, "标题4");
+    private static Collection<Map<Integer, Object>> demoMapData() {
+        Map<Integer, Object> item = new LinkedHashMap<>();
+        item.put(0, "--f");
+        item.put(1, "1123");
+        item.put(2, "12.34");
+        item.put(3, 4);
         return Lists.newArrayList(item);
     }
 
