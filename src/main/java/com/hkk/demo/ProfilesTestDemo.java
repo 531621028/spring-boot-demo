@@ -11,6 +11,8 @@ import org.springframework.core.env.Profiles;
 public class ProfilesTestDemo {
 
     public static void main(String[] args) {
+        // isAssignableFrom 表示当前clazz是否是对应参数的父类
+        System.out.println(Number.class.isAssignableFrom(Integer.class));
         String[] value = new String[]{"local,test"};
         // Profiles是一个函数式结果
         // Profiles.of -> ProfilesParser.parse -> parseExpression -> parseTokens
