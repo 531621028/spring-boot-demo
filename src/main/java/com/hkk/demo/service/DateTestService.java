@@ -21,13 +21,14 @@ public class DateTestService {
     private DateTestMapper dateTestMapper;
 
     public int testService() {
-        dateTestMapper.selectById(3L);
-        // DateTest dateTest = new DateTest();
-        // // LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
-        // dateTest.setDate(new Date(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000));
-        // // dateTest.setDate("2022-08-09");
-        // return dateTestMapper.insert(dateTest);
-        return 1;
+        DateTest dateTest = new DateTest();
+        // LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+        dateTest.setDate(new Date(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000));
+        // dateTest.setDate("2022-08-09");
+
+        dateTestMapper.selectById(20);
+        return dateTestMapper.insert(dateTest);
+        // return 1;
     }
 
 
