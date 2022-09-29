@@ -18,9 +18,9 @@ public class EasyExcelReadTest {
 
     public static void main(String[] args) {
 
-        final List<DemoData> excelItems = EasyExcelFactory.read("C:\\Users\\KANG\\Desktop\\导入测试.xlsx")
+        final List<DemoData> excelItems = EasyExcelFactory.read("C:\\Users\\KANG\\Desktop\\薪酬工作台\\导入测试.xlsx")
             .registerReadListener(new DemoDataListener())
-            .head(DemoData.class).sheet(1).doReadSync();
+            .head(DemoData.class).sheet(0).doReadSync();
         log.info("excel items is {}", JsonUtil.toJsonStringOrEmpty(excelItems));
     }
 
@@ -37,14 +37,14 @@ public class EasyExcelReadTest {
         // private String date;
         // @ExcelProperty(index = 5, value = {"标题2", "数字标题"})
         // private String date2;
-        @ExcelProperty(value = {"标题2", "字符串标题"})
-        private String data3;
-        @ExcelProperty(value = {"标题2", "数字标题"})
-        private String data4;
-        @ExcelProperty(value = {"标题1", "字符串标题"})
+        @ExcelProperty(value = {"模块1", "字段1"})
         private String data1;
-        @ExcelProperty(value = {"标题1", "数字标题"})
+        @ExcelProperty(value = {"模块1", "字段2"})
         private String data2;
+        @ExcelProperty(value = {"模块2", "字段1"})
+        private String data3;
+        @ExcelProperty(value = {"模块2", "字段2"})
+        private String data4;
     }
 
 }

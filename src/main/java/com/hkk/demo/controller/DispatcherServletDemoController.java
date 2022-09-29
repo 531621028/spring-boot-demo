@@ -7,10 +7,12 @@ package com.hkk.demo.controller;
  * @since 2021/6/16
  */
 
+import com.hkk.demo.utils.JsonUtil;
 import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -34,6 +36,12 @@ public class DispatcherServletDemoController {
     @RequestMapping("/showOrder")
     public String showOrder(Model model) {
         return Objects.requireNonNull(model.getAttribute("name")).toString();
+    }
+
+    @ResponseBody
+    @RequestMapping("/head")
+    public String showOrder(HttpServletRequest servletRequest) {
+        return JsonUtil.toJsonStringOrEmpty(servletRequest.getHeader("x-forwarded-for"));
     }
 
 }

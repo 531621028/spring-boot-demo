@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CacheDemoService {
 
-    @Cacheable(cacheNames = "CacheDemo60s#${spring.cache.ttl.cacheDemo60s}")
+    @Cacheable(cacheNames = "CacheDemo60s#60")
     public String get60s() {
         currentService();
         return "60s";
