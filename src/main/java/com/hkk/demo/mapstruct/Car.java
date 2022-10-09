@@ -9,9 +9,8 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class PersonDTO {
+public class Car {
 
-    private String id;
+    private Person driver;
     private String name;
-    private String location;
 }

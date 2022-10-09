@@ -14,6 +14,6 @@ public interface PersonMapper {
     PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
 
     @Mapping(target = "id", source = "person.id")
-    PersonDTO toDto(Person person, Address address);
+    PersonDto toDto(Person person, Address address);
 
 }
