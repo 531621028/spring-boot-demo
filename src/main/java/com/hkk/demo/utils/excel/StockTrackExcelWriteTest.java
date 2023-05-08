@@ -53,8 +53,7 @@ public class StockTrackExcelWriteTest {
             WriteSheet totalSheet = EasyExcel.writerSheet(1).head(ProjectData.class).build();
             excelWriter.write(projectData(), totalSheet);
             WriteSheet deptSheet = EasyExcel.writerSheet(2).build();
-            FillConfig fillConfig = FillConfig.builder().build();
-            excelWriter.fill(complexData(), fillConfig, deptSheet);
+            excelWriter.fill(complexData(), deptSheet);
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("stock", "HKD 10");
             map.put("date", "2023-04-01");
