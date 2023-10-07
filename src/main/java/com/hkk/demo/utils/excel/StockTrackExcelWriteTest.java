@@ -2,31 +2,20 @@ package com.hkk.demo.utils.excel;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
-import com.alibaba.excel.metadata.Head;
-import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.util.MapUtils;
-import com.alibaba.excel.write.handler.CellWriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.alibaba.excel.write.metadata.fill.FillConfig;
-import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
-import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
-import com.hkk.demo.utils.JsonUtil;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * @author kang
@@ -43,11 +32,13 @@ public class StockTrackExcelWriteTest {
     public static void complexFill() {
         // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
         // {} 代表普通变量 {.} 代表是list的变量
-        String templateFileName = getPath() + "demo" + File.separator + "fill" + File.separator + "StockTrackTemplate.xlsx";
+        String templateFileName =
+            getPath() + "demo" + File.separator + "fill" + File.separator + "StockTrackTemplate.xlsx";
 
         String fileName = getPath() + "complexFill" + System.currentTimeMillis() + ".xlsx";
+        File excelFile = new File(fileName);
         // 方案1
-        try (ExcelWriter excelWriter = EasyExcel.write(fileName).withTemplate(templateFileName).build()) {
+        try (ExcelWriter excelWriter = EasyExcel.write(excelFile).withTemplate(templateFileName).build()) {
             WriteSheet projectSheet = EasyExcel.writerSheet(0).head(ProjectData.class).build();
             excelWriter.write(projectData(), projectSheet);
             WriteSheet totalSheet = EasyExcel.writerSheet(1).head(ProjectData.class).build();
@@ -59,7 +50,6 @@ public class StockTrackExcelWriteTest {
             map.put("date", "2023-04-01");
             map.put("month", "202304");
             excelWriter.fill(map, deptSheet);
-
         }
     }
 
