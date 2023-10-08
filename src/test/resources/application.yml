@@ -17,6 +17,6 @@ spring:
 # mybatis配置
 mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  type-aliases-package: com.example.demo.mapper
+#  type-aliases-package: com.example.demo.mapper
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
