@@ -1,7 +1,6 @@
 spring:
   application:
     name: spring-boot-test
-
   h2:
     console:
       path: /h2-console #进入h2 web操作界面的路径
