@@ -1,4 +1,4 @@
-INSERT INTO `goods` (`goodsId`, `goodsName`, `subject`, `price`, `stock`)
+INSERT INTO `goods` (`goods_id`, `goods_name`, `subject`, `price`, `stock`)
 VALUES (3, '100分电动牙刷', '好用到让你爱上刷牙', '59.00', 98),
        (4, '蜂蜜牛奶手工皂', '深入滋养，肌肤细腻嫩滑', '70.00', 33),
        (5, '紫光筷子筒', '紫光智护，干爽防潮更健康', '189.00', 20),

@@ -9,14 +9,16 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: org.h2.Driver
-    schema: classpath:db/schema-h2.sql
-    data: classpath:db/data-h2.sql
+    # 结合 @MybatisPlusTest的properties属性，可以让不同Mapper的单元测试使用不同的初始化sql
+    # 但是这个配置文件能够共用
+    schema: classpath:db/${schema-sql}
+    data: classpath:db/${data-sql}
     url: jdbc:h2:mem:test
     username: root
     password: test
 # mybatis配置
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-#  type-aliases-package: com.example.demo.mapper
+  #  type-aliases-package: com.example.demo.mapper
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

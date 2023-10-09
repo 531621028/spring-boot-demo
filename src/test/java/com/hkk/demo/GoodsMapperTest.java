@@ -1,5 +1,6 @@
 package com.hkk.demo;
 
+import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.hkk.demo.dto.Goods;
 import com.hkk.demo.repository.mapper.GoodsMapper;
 import java.math.BigDecimal;
@@ -7,13 +8,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
 @RunWith(SpringRunner.class)
-@MybatisTest
+@MybatisPlusTest(properties = {
+    "schema-sql=goods/schema.sql",
+    "data-sql=goods/data.sql",
+})
 public class GoodsMapperTest {
 
     @Autowired
@@ -22,8 +25,9 @@ public class GoodsMapperTest {
     @Test
     @DisplayName("商品service:得到一件商品")
     public void getOneGoodsById() {
-        Goods goodsRet = goodsMapper.selectOneGoods(13L);
+        Goods goodsRet = goodsMapper.selectById(13L);
         Assert.assertEquals(13L, (long) goodsRet.getGoodsId());
+        Assert.assertEquals("悬浮歌词透明蓝牙音箱1 in h2", goodsRet.getGoodsName());
     }
 
     @Test
@@ -36,10 +40,10 @@ public class GoodsMapperTest {
         goodsOne.setPrice(new BigDecimal(101));
         goodsOne.setStock(13);
 
-        goodsMapper.insertOneGoods(goodsOne);
+        goodsMapper.insert(goodsOne);
         Assert.assertEquals(new BigDecimal(101), goodsOne.getPrice());
 
-        Goods goodsRet = goodsMapper.selectOneGoods(14L);
+        Goods goodsRet = goodsMapper.selectById(14L);
         Assert.assertEquals(14L, (long) goodsRet.getGoodsId());
     }
 }
