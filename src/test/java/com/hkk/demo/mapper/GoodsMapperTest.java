@@ -2,7 +2,6 @@ package com.hkk.demo.mapper;
 
 import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.hkk.demo.dto.Goods;
-import com.hkk.demo.mapper.GoodsMapper;
 import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Test;
