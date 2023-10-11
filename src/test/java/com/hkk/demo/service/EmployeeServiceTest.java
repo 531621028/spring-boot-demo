@@ -41,7 +41,7 @@ public class EmployeeServiceTest {
 
         Mockito.when(employeeRepository.findByName(alex.getName()))
             .thenReturn(alex);
-        //方法入参的校验和使用参考这篇文章 https://blog.51cto.com/u_15077533/2583510
+
     }
 
     @Test
@@ -53,6 +53,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void whenFilterByName() {
+        //方法入参的校验和使用参考这篇文章 https://blog.51cto.com/u_15077533/2583510
         Employee found = employeeService.filterByName("1");
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
         verify(employeeService, times(1)).filterByName(argumentCaptor.capture());
