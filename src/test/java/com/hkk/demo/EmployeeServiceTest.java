@@ -38,6 +38,7 @@ public class EmployeeServiceTest {
 
         Mockito.when(employeeRepository.findByName(alex.getName()))
             .thenReturn(alex);
+        //方法入参的校验和使用参考这篇文章 https://blog.51cto.com/u_15077533/2583510
     }
 
     @Test
