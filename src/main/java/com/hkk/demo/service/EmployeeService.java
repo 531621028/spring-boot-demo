@@ -21,6 +21,10 @@ public class EmployeeService {
         return employeeRepository.findByName(name);
     }
 
+    public Employee filterByName(String name) {
+        return getAllEmployees().stream().filter(employee -> name.equals(employee.getName())).findFirst().orElse(null);
+    }
+
     public List<Employee> getAllEmployees() {
         return Lists.newArrayList(new Employee("1"), new Employee("2"));
     }

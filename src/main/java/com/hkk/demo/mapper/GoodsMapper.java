@@ -1,4 +1,4 @@
-package com.hkk.demo.repository.mapper;
+package com.hkk.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hkk.demo.dto.Goods;

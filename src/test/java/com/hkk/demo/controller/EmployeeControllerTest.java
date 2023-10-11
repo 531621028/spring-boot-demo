@@ -1,4 +1,4 @@
-package com.hkk.demo;
+package com.hkk.demo.controller;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
