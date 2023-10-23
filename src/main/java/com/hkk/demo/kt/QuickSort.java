@@ -25,7 +25,8 @@ public class QuickSort {
         // j 向右遍历，将小于枢纽的值移到前面
         while (j < end) {
             if (nums[j] < nums[end]) {
-                swap(nums, i++, j);
+                swap(nums, i, j);
+                i++;
             }
             j++;
         }
